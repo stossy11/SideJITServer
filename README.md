@@ -8,7 +8,6 @@ This project allows you to start a server that wirelessly or via USB gives you J
 
 
 ```
-
 # You will need Python 3.9 installed
 
 python3 -m venv venv # Run inside SideJITServer directory!
