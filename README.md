@@ -1,9 +1,17 @@
-# SideJITServer
+# SideJITServer 
+
+**NOTE:** This is a modified version of SideJITServer for Python 3.9 find the official version [here](https://github.com/nythepegasus/SideJITServer)
+
 This project allows you to start a server that wirelessly or via USB gives you JIT for iOS 17+ on Windows/macOS/Linux if you use the correct newer pymobiledevice3 version.
 
 ## How to get this running (Run with Administrator!)
+
+
 ```
-python3 -m venv venv # Run inside SideJITStore directory!
+
+# You will need Python 3.9 installed
+
+python3 -m venv venv # Run inside SideJITServer directory!
 
 # Activate Python venv
 
@@ -19,22 +27,16 @@ python3 -m venv venv # Run inside SideJITStore directory!
 # Now let's install all the required packages! (Make sure you're still inside venv!)
 # All OS
 pip3 install -r requirements.txt
-pip3 install SideJITServer
 # If you got an error saying pip3 not found just change pip3 to pip
 
-# Let's see if everything works (Make sure you're still inside venv!)
-SideJITServer --version
-# Output should show SideJITServer!
+# Let's see if everything works 
+python3 SideJITServer --help
+
+# Ignore the "NotOpenSSLWarning"
+# Output should show "Usage: SideJITServer [OPTIONS]" etc
+
 ```
 
-Or use PyPI
-```
-python3 -m venv venv
-# Activate venv..
-
-pip3 install SideJITServer
-SideJITServer --help
-```
 # How to use SideJITServer?
 - Make sure your device is connected!
 - Make sure you're still inside the venv!
@@ -42,6 +44,8 @@ SideJITServer --help
   
 Now run `SideJITServer --pair` and on your PC make sure you click on Trust this PC!
 Also it will show you a prompt to continue just type "y"
+
+PS: Every other time you run SideJITServer run `SideJITServer` without --pair as you only need to do this once
 
 Now thats done, Install [this](https://www.icloud.com/shortcuts/b0ffc9c3f0e74e7a8f8052c89fa322cf) shortcut
 
