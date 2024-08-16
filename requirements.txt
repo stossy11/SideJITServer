@@ -1,4 +1,4 @@
-pymobiledevice3>=4.2.3,<4.3.0
-pymobiledevice3>=3.4.0
+pymobiledevice3==4.11.20
+inquirer
 Flask==3.0.2
 zeroconf==0.132.2

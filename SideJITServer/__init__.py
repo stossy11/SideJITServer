@@ -2,7 +2,7 @@ import atexit
 import click
 import socket
 import logging
-import inquirer3
+import inquirer
 import multiprocessing
 from time import sleep
 from flask import Flask
@@ -19,20 +19,17 @@ from pymobiledevice3.services.dvt.dvt_secure_socket_proxy import DvtSecureSocket
 from pymobiledevice3.tunneld import get_tunneld_devices, TUNNELD_DEFAULT_ADDRESS, TunneldRunner
 
 from pymobiledevice3._version import __version__ as pymd_ver
-from SideJITServer._version import __version__
-
 
 devs = []
 app = Flask(__name__)
 logging.basicConfig(level=logging.WARNING)
-
 
 class App:
     __slots__ = ('name', 'bundle', 'pid')
 
     def __init__(self, name: str, bundle: str, pid: int = -1):
         self.name = name
-        self.bundle = bundle 
+        self.bundle = bundle
         self.pid = pid
 
     def __repr__(self):
@@ -44,7 +41,7 @@ class App:
 class Device:
     __slots__ = ('handle', 'name', 'udid', 'apps')
 
-    def __init__(self, handle, name: str, udid: str, apps: list[App]):
+    def __init__(self, handle, name: str, udid: str, apps: list):
         self.handle = handle
         self.name = name
         self.udid = udid
@@ -114,7 +111,6 @@ class Device:
     def asdict(self):
         return {self.name: [a.asdict() for a in self.apps]}
 
-
 def refresh_devs():
     global devs
     devs = []
@@ -139,7 +135,7 @@ def devices():
 
 @app.route("/ver/")
 def route_version():
-    return {"pymobiledevice3": pymd_ver, "SideJITServer": __version__}
+    return {"pymobiledevice3": pymd_ver, "SideJITServer": "Python 3.9 Edition"}
 
 @app.route("/re/")
 def refresh_devices():
@@ -173,9 +169,9 @@ def start_tunneld_proc():
                          protocol=TunnelProtocol('quic'), usb_monitor=True, wifi_monitor=True)
 
 def prompt_device_list(device_list: list):
-    device_question = [inquirer3.List('device', message='choose device', choices=device_list, carousel=True)]
+    device_question = [inquirer.List('device', message='choose device', choices=device_list, carousel=True)]
     try:
-        result = inquirer3.prompt(device_question, raise_keyboard_interrupt=True)
+        result = inquirer.prompt(device_question, raise_keyboard_interrupt=True)
         return result['device']
     except KeyboardInterrupt:
         raise Exception()
@@ -240,15 +236,14 @@ def start_server(verbose, timeout, port, debug, pair, version, tunnel):
     log_levels = [logging.WARNING, logging.INFO, logging.DEBUG]
     verbosity_level = min(len(log_levels) - 1, verbose)
     logging.getLogger().setLevel(log_levels[verbosity_level])
+
     if not tunnel:
-        tunneld = multiprocessing.Process(target=start_tunneld_proc)
-        tunneld.start()
+        proc = multiprocessing.Process(target=start_tunneld_proc)
+        proc.start()
+        sleep(5)
 
-        atexit.register(tunneld.terminate)
-
-        sleep(timeout)
-
+    logging.getLogger().setLevel({0: logging.WARNING, 1: logging.INFO, 2: logging.DEBUG}.get(verbose, logging.DEBUG))
     refresh_devs()
+    create_service(port)
+    app.run(host='0.0.0.0', port=port, debug=debug, threaded=True)
 
-    create_service()
-    app.run(host='0.0.0.0', port=port, debug=debug)
