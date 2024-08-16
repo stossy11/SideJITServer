@@ -23,6 +23,10 @@ python3 -m venv venv # Run inside SideJITServer directory!
 # Windows but using Command Prompt/CMD
 .\venv\Scripts\Activate.bat
 
+# Now we got to clone SideJITServer
+# if git doesnt exist just google how to install it for your OS
+git clone https://github.com/stossy11/SideJITServer/
+
 # Now let's install all the required packages! (Make sure you're still inside venv!)
 # All OS
 pip3 install -r requirements.txt
