@@ -31,6 +31,7 @@ pip3 install -r requirements.txt
 # Let's see if everything works 
 python3 SideJITServer --help
 
+
 # Ignore the "NotOpenSSLWarning"
 # Output should show "Usage: SideJITServer [OPTIONS]" etc
 
@@ -44,11 +45,11 @@ python3 SideJITServer --help
 Now run `SideJITServer --pair` and on your PC make sure you click on Trust this PC!
 Also it will show you a prompt to continue just type "y"
 
-PS: Every other time you run SideJITServer run `SideJITServer` without --pair as you only need to do this once
+PS: Every other time you run SideJITServer run `SideJITServer` without --pair as you only need to do this once 
 
 Now thats done, Install [this](https://www.icloud.com/shortcuts/b0ffc9c3f0e74e7a8f8052c89fa322cf) shortcut
 
-After that its gonna ask you to put on your device's UDID, Go to your PC and see your local ipaddress mine is `192.168.0.6:8080` and on your phone go to that (your local address) and copy the one that beside usbmux (example : 00001111-000A1100A11101A)
+After that its gonna ask you to put on your device's UDID, Go to your PC and see your local IP Address mine is `192.168.0.6:8080` and on your phone go to that (your local address) and copy the one that beside usbmux (example : 00001111-000A1100A11101A)
 
 Now it's gonna ask you for SideJIT Server address! Just type in the address you use earlier to access device's UDID
 
