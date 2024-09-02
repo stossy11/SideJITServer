@@ -25,7 +25,7 @@ python3 -m venv venv # Run inside SideJITServer directory!
 
 # Now we got to clone SideJITServer
 # if git doesnt exist just google how to install it for your OS
-git clone https://github.com/stossy11/SideJITServer/
+git clone https://github.com/stossy11/SideJITServer/ -b Py3.9
 cd SideJITServer
 
 # Now let's install all the required packages! (Make sure you're still inside venv!)
